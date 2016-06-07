@@ -1,0 +1,42 @@
+<!doctype html>
+
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>NODE SERVER USING EXPRESS</title>
+  <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+
+<body>
+	<h1>CHAT</h1>
+
+	<input type="text" placeholder="write here"/>
+	<button>send</button>
+
+	<ul></ul>
+
+	<script type="text/javascript">
+		var socket = io();
+
+		function send(){
+			var _val = $('input').val();
+			socket.emit('send', _val);
+			$('input').val('');
+		}
+
+		$(function(){
+			$('button').click(send);
+		});
+
+		document.addEventListener('keyup', function(ev){
+			if(ev.keyCode === 13) send();
+		});
+
+		socket.on('receive', function(msg){
+			$('ul').prepend('<li>'+msg+'</li>')
+		});
+	</script>
+</body>
+
+</html>
