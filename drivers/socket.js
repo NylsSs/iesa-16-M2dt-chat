@@ -23,16 +23,6 @@ module.exports = function(app){
 					socket.on(_ev.listener, app[_service][_method])
 				}
 
-				socket.on('send', function(msg){
-					app.socket.io.emit('receive', msg);
-				});
-
-
-				// User disconnection
-				socket.on('disconnect', function(){
-					console.log('user disconnected');
-				});
-
 			});
 		}
 	}
